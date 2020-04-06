@@ -5,11 +5,21 @@ public class ATM
     {
         Scanner kb = new Scanner(System.in);
         Scanner sn = new Scanner(System.in);
-        CheckingAccount checking = new CheckingAccount(50);
-        SavingsAccount saving = new SavingsAccount(50);
+
+
+        System.out.println("How much money do you want to begin with in your Checking Account?");
+        float checkStart = sn.nextFloat();
+        CheckingAccount checking = new CheckingAccount(checkStart);
+        System.out.println("How much money do you want to begin with in your Savings Account?");
+        float saveStart = sn.nextFloat();
+        SavingsAccount saving = new SavingsAccount(saveStart);
 
         Boolean Power = true;
         int transactions = 0;
+
+        float interest = (float) 0.1;
+
+        System.out.println("Greetings, how may I serve you?");
 
         do
         {
@@ -42,6 +52,7 @@ public class ATM
                 {
                     saving.deposit(depo);
                 }
+                transactions ++;
             }
             if (input == 'W' || input == 'w')
             {
@@ -72,6 +83,7 @@ public class ATM
                         saving.withdraw(with);
                     }
                 }
+                transactions++;
             }
             if(input == 'T' || input == 't')
             {
@@ -104,8 +116,16 @@ public class ATM
                         checking.deposit(trans);
                     }
                 }
+                transactions++;
             }
-            
+            if(transactions % 5 == 0 && transactions != 0)
+            {
+                System.out.println("Interest Calculated!");
+                saving.deposit(saving.balance * interest);
+                System.out.println("Your Checking Account has " + checking.balance + " credits");
+                System.out.println("Your Savings Account has " + saving.balance + " credits");
+            }
+
         } while (Power == true);
         System.out.println("Thank You for using this ATM. Have a good day");
     }
