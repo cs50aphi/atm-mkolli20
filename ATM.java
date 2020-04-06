@@ -52,32 +52,60 @@ public class ATM
 
                 if(acc == 1)
                 {
-                    if(with <= checking.balance)
-                    {
-                        checking.withdraw(with);
-                    }
                     if(with > checking.balance)
                     {
                         System.out.println("Insufficient Funds");
                     }
+                    if(with <= checking.balance)
+                    {
+                        checking.withdraw(with);
+                    }
                 }
                 if(acc == 2)
                 {
-                    if(with <= saving.balance)
-                    {
-                        saving.withdraw(with);
-                    }
                     if(with > saving.balance)
                     {
                         System.out.println("Insufficient Funds");
+                    }
+                    if(with <= saving.balance)
+                    {
+                        saving.withdraw(with);
                     }
                 }
             }
             if(input == 'T' || input == 't')
             {
-                
-            }
+                System.out.println("Transfer from (1)Checking Account or (2)Savings Account");
+                int acc = sn.nextInt();
+                System.out.println("how many credits do you want to transfer?");
+                float trans = sn.nextFloat();
 
+                if(acc == 1)
+                {
+                    if(trans > checking.balance)
+                    {
+                        System.out.println("Insufficient Funds");
+                    }
+                    if(trans <= checking.balance)
+                    {
+                        checking.withdraw(trans);
+                        saving.deposit(trans);
+                    }
+                }
+                if(acc == 2)
+                {
+                    if(trans > saving.balance)
+                    {
+                        System.out.println("Insufficient Funds");
+                    }
+                    if(trans <= saving.balance)
+                    {
+                        saving.withdraw(trans);
+                        checking.deposit(trans);
+                    }
+                }
+            }
+            
         } while (Power == true);
         System.out.println("Thank You for using this ATM. Have a good day");
     }
